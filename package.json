@@ -1,8 +1,8 @@
 {
-  "name": "tsdown-starter",
+  "name": "@zjy040525/ccrc-crypto",
   "version": "0.0.0",
   "private": true,
-  "description": "A simple example library built by tsdown",
+  "description": "ccrc加密/解密工具",
   "type": "module",
   "files": [
     "dist"
@@ -20,5 +20,6 @@
   },
   "devDependencies": {
     "tsdown": "latest"
-  }
+  },
+  "packageManager": "pnpm@10.13.1"
 }
