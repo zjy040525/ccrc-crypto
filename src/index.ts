@@ -1,33 +1,38 @@
-import { AES, enc, mode, pad } from 'crypto-js'
+import type { lib } from 'crypto-js'
+import aes from 'crypto-js/aes'
+import encBase64 from 'crypto-js/enc-base64'
+import encUtf8 from 'crypto-js/enc-utf8'
+import modeEcb from 'crypto-js/mode-ecb'
+import padPkcs7 from 'crypto-js/pad-pkcs7'
 
 export class Crypto {
-  key: CryptoJS.lib.WordArray
-  iv: CryptoJS.lib.WordArray
+  key: lib.WordArray
+  iv: lib.WordArray
 
   constructor(key: string, iv: string) {
-    this.key = enc.Utf8.parse(key)
-    this.iv = enc.Utf8.parse(iv)
+    this.key = encUtf8.parse(key)
+    this.iv = encUtf8.parse(iv)
   }
 
   encrypt(word: string): string {
-    const words = enc.Utf8.parse(word)
-    const encrypted = AES.encrypt(words, this.key, {
+    const words = encUtf8.parse(word)
+    const encrypted = aes.encrypt(words, this.key, {
       iv: this.iv,
-      mode: mode.ECB,
-      padding: pad.Pkcs7,
+      mode: modeEcb,
+      padding: padPkcs7,
     })
-    return enc.Base64.stringify(encrypted.ciphertext)
+    return encBase64.stringify(encrypted.ciphertext)
   }
 
   decrypt(word: string): string {
-    const base64 = enc.Base64.parse(word)
-    const src = enc.Base64.stringify(base64)
+    const base64 = encBase64.parse(word)
+    const src = encBase64.stringify(base64)
 
-    const decrypt = AES.decrypt(src, this.key, {
+    const decrypt = aes.decrypt(src, this.key, {
       iv: this.iv,
-      mode: mode.ECB,
-      padding: pad.Pkcs7,
+      mode: modeEcb,
+      padding: padPkcs7,
     })
-    return enc.Utf8.stringify(decrypt)
+    return encUtf8.stringify(decrypt)
   }
 }
