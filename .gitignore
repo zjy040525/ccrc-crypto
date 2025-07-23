@@ -4,3 +4,8 @@ dist
 *.log
 .DS_Store
 .eslintcache
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
