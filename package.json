@@ -19,9 +19,13 @@
     "dev": "tsdown --watch"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.1.0",
     "tsdown": "latest",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "crypto-js": "^4.2.0"
+  }
 }
