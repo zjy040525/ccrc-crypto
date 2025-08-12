@@ -1,9 +1,9 @@
 import type { lib } from 'crypto-js'
-import aes from 'crypto-js/aes'
-import encBase64 from 'crypto-js/enc-base64'
-import encUtf8 from 'crypto-js/enc-utf8'
-import modeEcb from 'crypto-js/mode-ecb'
-import padPkcs7 from 'crypto-js/pad-pkcs7'
+import aes from 'crypto-js/aes.js'
+import encBase64 from 'crypto-js/enc-base64.js'
+import encUtf8 from 'crypto-js/enc-utf8.js'
+import modeEcb from 'crypto-js/mode-ecb.js'
+import padPkcs7 from 'crypto-js/pad-pkcs7.js'
 
 export class Crypto {
   key: lib.WordArray
