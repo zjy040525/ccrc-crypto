@@ -1,7 +1,7 @@
 {
   "name": "@zjy040525/ccrc-crypto",
   "type": "module",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "packageManager": "pnpm@10.14.0",
   "description": "CCRC 认证加密/解密工具",
   "sideEffects": false,
