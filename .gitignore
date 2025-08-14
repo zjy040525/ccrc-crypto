@@ -1,9 +1,12 @@
-node_modules
-dist
-
-*.log
+# Local
 .DS_Store
-.eslintcache
+*.local
+*.log*
+
+# Dist
+node_modules
+dist/
+storybook-static
 
 # IDE
 .vscode/*
