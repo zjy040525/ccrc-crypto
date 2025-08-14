@@ -1,41 +1,47 @@
 {
   "name": "@zjy040525/ccrc-crypto",
   "type": "module",
-  "version": "0.0.8",
+  "version": "1.0.0-beta.1",
   "packageManager": "pnpm@10.14.0",
-  "description": "CCRC加密/解密工具",
+  "description": "CCRC 认证加密/解密工具",
+  "sideEffects": false,
   "exports": {
-    ".": "./dist/index.js",
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=18.12.0"
+  },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "release": "bumpp && pnpm publish",
-    "prepublishOnly": "pnpm run build",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "test": "vitest",
+    "test:ci": "vitest run",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "prepublishOnly": "pnpm run build",
+    "release": "bumpp && pnpm publish"
   },
   "dependencies": {
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
+    "@rslib/core": "^0.12.0",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^24.2.1",
+    "@types/node": "^22.17.1",
     "bumpp": "^10.2.3",
     "eslint": "^9.33.0",
     "eslint-plugin-format": "^1.0.1",
-    "tsdown": "latest",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   }
 }
