@@ -1,40 +1,67 @@
-import type { lib } from 'crypto-js'
-import aes from 'crypto-js/aes.js'
-import encBase64 from 'crypto-js/enc-base64.js'
-import encUtf8 from 'crypto-js/enc-utf8.js'
-import modeEcb from 'crypto-js/mode-ecb.js'
-import padPkcs7 from 'crypto-js/pad-pkcs7.js'
+export class Crypto {
+  key: string
+  iv: string
 
-class Crypto {
-  key: lib.WordArray
-  iv: lib.WordArray
-
-  constructor(key: string, iv: string) {
-    this.key = encUtf8.parse(key)
-    this.iv = encUtf8.parse(iv)
+  constructor(key: string, iv: string = '') {
+    this.key = key
+    this.iv = iv
   }
 
-  encrypt(word: string): string {
-    const words = encUtf8.parse(word)
-    const encrypted = aes.encrypt(words, this.key, {
-      iv: this.iv,
-      mode: modeEcb,
-      padding: padPkcs7,
-    })
-    return encBase64.stringify(encrypted.ciphertext)
+  private getIvBuffer(): Uint8Array {
+    const enc = new TextEncoder()
+    const encoded = enc.encode(this.iv)
+    const ivBuffer = new Uint8Array(16)
+    // 截取最多16字节填入，不足则补0
+    ivBuffer.set(encoded.slice(0, 16))
+    return ivBuffer
   }
 
-  decrypt(word: string): string {
-    const base64 = encBase64.parse(word)
-    const src = encBase64.stringify(base64)
+  private async importKey(): Promise<CryptoKey> {
+    const enc = new TextEncoder()
+    return crypto.subtle.importKey(
+      'raw',
+      enc.encode(this.key),
+      'AES-CBC',
+      false,
+      ['encrypt', 'decrypt'],
+    )
+  }
 
-    const decrypt = aes.decrypt(src, this.key, {
-      iv: this.iv,
-      mode: modeEcb,
-      padding: padPkcs7,
-    })
-    return encUtf8.stringify(decrypt)
+  async encrypt(word: string): Promise<string> {
+    const enc = new TextEncoder()
+    const key = await this.importKey()
+    const iv = this.getIvBuffer()
+    const data = enc.encode(word)
+
+    const encrypted = await crypto.subtle.encrypt(
+      {
+        name: 'AES-CBC',
+        iv: iv as BufferSource,
+      },
+      key,
+      data as BufferSource,
+    )
+
+    // Convert ArrayBuffer to Base64
+    return btoa(String.fromCharCode(...new Uint8Array(encrypted as ArrayBuffer)))
+  }
+
+  async decrypt(word: string): Promise<string> {
+    const key = await this.importKey()
+    const iv = this.getIvBuffer()
+    // Convert Base64 to ArrayBuffer
+    const data = Uint8Array.from(atob(word), c => c.charCodeAt(0))
+
+    const decrypted = await crypto.subtle.decrypt(
+      {
+        name: 'AES-CBC',
+        iv: iv as BufferSource,
+      },
+      key,
+      data as BufferSource,
+    )
+
+    const dec = new TextDecoder()
+    return dec.decode(decrypted as ArrayBuffer)
   }
 }
-
-export default Crypto

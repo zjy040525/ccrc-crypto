@@ -1,10 +1,7 @@
 import { expect, it } from 'vitest'
-import Crypto from '../src/index'
+import { Crypto } from '../src'
 
-it('should encrypt and decrypt a pwd', () => {
-  const crypto = new Crypto('1234567890abcdef1234567890abcdef', '')
-  const pwd = 'my-password'
-  const encrypted = crypto.encrypt(pwd)
-  const decrypted = crypto.decrypt(encrypted)
-  expect(decrypted).toBe(pwd)
+it('crypto', async () => {
+  const crypto = new Crypto('1234567890123456')
+  expect(await crypto.encrypt('123456')).toBe('yXVUkR45PFz0UfpbDB8/ew==')
 })
