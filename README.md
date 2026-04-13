@@ -1,23 +1,32 @@
 # CCRC Crypto
 
-## Setup
+ccrc 系统加密/解密工具库, 基于 Web Crypto API 实现.
 
-Install the dependencies:
+## 兼容性
+
+| 版本 | 实现方式                                                                    | npm dist-tag | 状态   |
+| ---- | --------------------------------------------------------------------------- | ------------ | ------ |
+| 2.x  | [Web Crypto API](https://developer.mozilla.org/docs/Web/API/Web_Crypto_API) | `latest`     | 活跃   |
+| 1.x  | [crypto-js](https://www.npmjs.com/package/crypto-js)                        | `legacy`     | 维护中 |
+
+> 推荐使用 2.x 版本, 因为它使用了现代浏览器都支持的 Web Crypto API, 提供更好的性能和安全性, 并且相比 1.x 可以有效减少包大小.
+
+## Development
+
+- Install dependencies:
 
 ```bash
 pnpm install
 ```
 
-## Get started
-
-Build the library:
+- Run the unit tests:
 
 ```bash
-pnpm build
+pnpm run test
 ```
 
-Build the library in watch mode:
+- Build the library:
 
 ```bash
-pnpm dev
+pnpm run build
 ```

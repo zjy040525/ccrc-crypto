@@ -2,46 +2,48 @@
   "name": "@zjy040525/ccrc-crypto",
   "type": "module",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.33.0",
   "description": "CCRC 认证加密/解密工具",
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+  "author": "zjy040525 <jiayao.zhao@proton.me>",
+  "license": "MIT",
+  "homepage": "https://github.com/zjy040525/ccrc-crypto#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zjy040525/ccrc-crypto.git"
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/zjy040525/ccrc-crypto/issues"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
-    "build": "rslib build",
-    "dev": "rslib build --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest",
-    "test:ci": "vitest run",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp",
     "prepublishOnly": "pnpm run build",
-    "release": "bumpp && pnpm publish"
-  },
-  "dependencies": {
-    "crypto-js": "^4.2.0"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.2.1",
-    "@rslib/core": "^0.12.4",
-    "@types/crypto-js": "^4.2.2",
-    "@types/node": "^24.3.0",
-    "bumpp": "^10.2.3",
-    "eslint": "^9.34.0",
-    "eslint-plugin-format": "^1.0.1",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "@antfu/eslint-config": "^8.2.0",
+    "@arethetypeswrong/core": "^0.18.2",
+    "@typescript/native-preview": "7.0.0-dev.20260328.1",
+    "bumpp": "^11.0.1",
+    "eslint": "^10.2.0",
+    "eslint-plugin-format": "^2.0.1",
+    "publint": "^0.3.18",
+    "tsdown": "^0.21.7",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.4"
   }
 }
