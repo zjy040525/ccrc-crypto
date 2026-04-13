@@ -1,7 +1,7 @@
 {
   "name": "@zjy040525/ccrc-crypto",
   "type": "module",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "packageManager": "pnpm@10.33.0",
   "description": "CCRC 认证加密/解密工具",
   "author": "zjy040525 <jiayao.zhao@proton.me>",
